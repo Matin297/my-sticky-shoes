@@ -14,7 +14,7 @@ export async function POST(request: NextRequest) {
     return NextResponse.json({ error: "Invalid refresh token" }, { status: 401 });
   }
 
-  const response = NextResponse.json({ success: true });
+  const response = NextResponse.json({ token: MOCK_ACCESS_TOKEN });
 
   response.cookies.set(ACCESS_TOKEN, MOCK_ACCESS_TOKEN, {
     ...BASE_COOKIE_OPTIONS,
