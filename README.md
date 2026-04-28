@@ -15,7 +15,9 @@ Because I want to stick to good habits and experiment fearlessly.
 
 ## Roadmap (chaotic)
 
+- [ ] View Transitions
+- [ ] PWA Stuff
 - [ ] Playing around with authentication flows
-- [ ] Add TanStack Query, Table, etc.
+- [ ] TanStack Query, Table, etc.
 - [ ] Try a UI library (MUI? shadcn? probably MUI)
 - [ ] Actually build something useful? Maybe
