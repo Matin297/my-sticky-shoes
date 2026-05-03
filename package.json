@@ -3,15 +3,17 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
+    "prepare": "lefthook install",
+    "predev": "bun scripts/generate-sw.ts",
     "dev": "next dev",
+    "prebuild": "bun scripts/generate-sw.ts",
     "build": "next build",
     "start": "next start",
     "lint": "biome check .",
     "lint:fix": "biome check --write .",
     "format": "biome format --write .",
     "format:check": "biome format .",
-    "organize-imports": "biome check --write . --organize-imports-enabled=true",
-    "prepare": "lefthook install"
+    "organize-imports": "biome check --write . --organize-imports-enabled=true"
   },
   "dependencies": {
     "axios": "^1.15.2",
