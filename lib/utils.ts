@@ -4,3 +4,4 @@ export const isStandalone = () =>
     ("standalone" in navigator && navigator.standalone === true));
 
 export const isProductionEnv = process.env.NODE_ENV === "production";
+export const isDevelopmentEnv = process.env.NODE_ENV === "development";

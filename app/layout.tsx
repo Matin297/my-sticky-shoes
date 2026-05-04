@@ -4,6 +4,7 @@ import "./globals.css";
 import { isProductionEnv } from "@/lib/utils";
 import PWAInstallationPrompt from "./_components/PWAInstallationPrompt";
 import ServiceWorkerUpdatePrompt from "./_components/ServiceWorkerUpdatePrompt";
+import QueryClientProvider from "./_providers/QueryClientProvider";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -28,7 +29,8 @@ export default function RootLayout({
   return (
     <html lang="en" className={`${geistSans.variable} ${geistMono.variable}`}>
       <body>
-        {children}
+        <QueryClientProvider>{children}</QueryClientProvider>
+
         {isProductionEnv && <PWAInstallationPrompt />}
         {isProductionEnv && <ServiceWorkerUpdatePrompt />}
       </body>

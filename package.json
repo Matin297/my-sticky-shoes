@@ -16,6 +16,7 @@
     "organize-imports": "biome check --write . --organize-imports-enabled=true"
   },
   "dependencies": {
+    "@tanstack/react-query": "^5.100.9",
     "axios": "^1.15.2",
     "next": "16.2.4",
     "react": "19.2.4",
@@ -25,6 +26,7 @@
     "@biomejs/biome": "^2.4.13",
     "@commitlint/cli": "^20.5.2",
     "@commitlint/config-conventional": "^20.5.0",
+    "@tanstack/react-query-devtools": "^5.100.9",
     "@types/node": "^20",
     "@types/react": "^19",
     "@types/react-dom": "^19",
