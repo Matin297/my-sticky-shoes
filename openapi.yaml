@@ -1,0 +1,141 @@
+openapi: 3.0.0
+info:
+  title: My Sticky Shoes API
+  version: 1.0.0
+servers:
+  - url: http://localhost:3000/api/mock
+    description: Local API
+  - url: https://upcommingdomain-staging.com/api
+    description: Staging API (not ready yet)
+  - url: https://upcommingdomain-production.com/api
+    description: Production API (not ready yet)
+
+paths:
+  /auth/login:
+    post:
+      summary: User Login
+      operationId: login
+      tags:
+        - Auth
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - email
+                - password
+              properties:
+                email:
+                  type: string
+                  format: email
+                  example: test@example.com
+                password:
+                  type: string
+                  format: password
+                  example: password123
+      responses:
+        '200':
+          description: Successful login
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  user:
+                    $ref: '#/components/schemas/User'
+        '400':
+          description: Missing credentials
+        '401':
+          description: Invalid credentials
+        '500':
+          description: Internal server error
+
+  /auth/signup:
+    post:
+      summary: User Registration
+      operationId: signup
+      tags:
+        - Auth
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - email
+                - password
+                - name
+              properties:
+                email:
+                  type: string
+                  format: email
+                password:
+                  type: string
+                  minLength: 6
+                name:
+                  type: string
+                  minLength: 2
+      responses:
+        '200':
+          description: Successful Signup
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  user:
+                    $ref: '#/components/schemas/User'
+        '400':
+          description: Missing fields or invalid data
+        '500':
+          description: Internal server error
+
+  /auth/me:
+    get:
+      summary: Get Current User
+      operationId: getCurrentUser
+      tags:
+        - Auth
+      responses:
+        '200':
+          description: User data retrieved
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  user:
+                    $ref: '#/components/schemas/User'
+        '401':
+          description: Unauthorized request
+
+  /auth/logout:
+    post:
+      summary: Logout user
+      operationId: logout
+      tags:
+        - Auth
+      responses:
+        '200':
+          description: Successful Logout
+        '500':
+          description: Internal server error
+
+components:
+  schemas:
+    User:
+      type: object
+      properties:
+        id:
+          type: string
+          example: "1"
+        email:
+          type: string
+          format: email
+          example: test@example.com
+        name:
+          type: string
+          example: Test User

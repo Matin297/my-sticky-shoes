@@ -1,5 +1,5 @@
-import axios from "axios";
-import { deleteAuthCookies } from "./cookies";
+import axios, { type AxiosRequestConfig } from "axios";
+import { deleteAuthCookies } from "../lib/cookies";
 
 export const axiosInstance = axios.create({
   baseURL: process.env.NEXT_PUBLIC_API_URL,
@@ -46,4 +46,6 @@ axiosInstance.interceptors.response.use(
   },
 );
 
-export default axiosInstance;
+export function getAxiosInstance<T>(config: AxiosRequestConfig) {
+  return axiosInstance.request<T>(config);
+}

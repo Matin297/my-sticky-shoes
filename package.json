@@ -4,16 +4,20 @@
   "private": true,
   "scripts": {
     "prepare": "lefthook install",
-    "predev": "bun scripts/generate-sw.ts",
+    "predev": "bun run generate:all",
     "dev": "next dev",
-    "prebuild": "bun scripts/generate-sw.ts",
+    "prebuild": "bun run generate:all",
     "build": "next build",
     "start": "next start",
     "lint": "biome check .",
     "lint:fix": "biome check --write .",
     "format": "biome format --write .",
     "format:check": "biome format .",
-    "organize-imports": "biome check --write . --organize-imports-enabled=true"
+    "organize-imports": "biome check --write . --organize-imports-enabled=true",
+    "generate:all": "bun run generate:sw && bun run generate:services",
+    "generate:sw": "bun scripts/generate-sw.ts",
+    "generate:services": "orval",
+    "generate:services:watch": "orval --watch"
   },
   "dependencies": {
     "@tanstack/react-query": "^5.100.9",
@@ -32,6 +36,7 @@
     "@types/react-dom": "^19",
     "babel-plugin-react-compiler": "^1.0.0",
     "lefthook": "^2.1.6",
+    "orval": "^8.9.1",
     "typescript": "^5"
   },
   "ignoreScripts": [
