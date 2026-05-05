@@ -1,4 +1,5 @@
 import { cookies } from "next/headers";
+import { isProductionEnv } from "./utils";
 
 export const ACCESS_TOKEN = "mss-access-token";
 export const REFRESH_TOKEN = "mss-refresh-token";
@@ -6,12 +7,10 @@ export const REFRESH_TOKEN = "mss-refresh-token";
 export const ACCESS_TOKEN_MAX_AGE = 15 * 60; // 15 minutes
 export const REFRESH_TOKEN_MAX_AGE = 7 * 24 * 60 * 60; // 7 days
 
-const isProduction = process.env.NODE_ENV === "production";
-
 export const BASE_COOKIE_OPTIONS = {
   httpOnly: true,
-  secure: isProduction,
-  sameSite: isProduction ? "strict" : "lax",
+  secure: isProductionEnv,
+  sameSite: isProductionEnv ? "strict" : "lax",
   path: "/",
 } as const;
 
