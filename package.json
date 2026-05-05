@@ -17,7 +17,8 @@
     "generate:all": "bun run generate:sw && bun run generate:services",
     "generate:sw": "bun scripts/generate-sw.ts",
     "generate:services": "orval",
-    "generate:services:watch": "orval --watch"
+    "generate:services:watch": "orval --watch",
+    "type-check": "tsc --noEmit"
   },
   "dependencies": {
     "@tanstack/react-query": "^5.100.9",
