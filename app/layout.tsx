@@ -1,20 +1,9 @@
 import type { Metadata } from "next";
-import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import { isProductionEnv } from "@/lib/utils";
 import PWAInstallationPrompt from "./_components/PWAInstallationPrompt";
 import ServiceWorkerUpdatePrompt from "./_components/ServiceWorkerUpdatePrompt";
-import QueryClientProvider from "./_providers/QueryClientProvider";
-
-const geistSans = Geist({
-  variable: "--font-geist-sans",
-  subsets: ["latin"],
-});
-
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
-  subsets: ["latin"],
-});
+import { Providers } from "./_providers";
 
 export const metadata: Metadata = {
   title: "Create Next App",
@@ -27,9 +16,9 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className={`${geistSans.variable} ${geistMono.variable}`}>
+    <html lang="en">
       <body>
-        <QueryClientProvider>{children}</QueryClientProvider>
+        <Providers>{children}</Providers>
 
         {isProductionEnv && <PWAInstallationPrompt />}
         {isProductionEnv && <ServiceWorkerUpdatePrompt />}
