@@ -1,6 +1,8 @@
 import { QueryClient } from "@tanstack/react-query";
 import type { AxiosError } from "axios";
 import { cache } from "react";
+import { toast } from "sonner";
+import { getErrorMessage } from "./error";
 
 const QUERY_RETRY = 3;
 const STALE_TIME = 5 * 60 * 1000; // 5 min
@@ -47,6 +49,12 @@ function makeQueryClient() {
       mutations: {
         retry: false,
         networkMode: "online",
+        onError: error => {
+          const message = getErrorMessage(error);
+          if (message) {
+            toast.error(message);
+          }
+        },
       },
     },
   });
