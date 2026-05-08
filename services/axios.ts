@@ -1,5 +1,4 @@
 import axios, { type AxiosRequestConfig } from "axios";
-import { deleteAuthCookies } from "../lib/cookies";
 
 export const axiosInstance = axios.create({
   baseURL: process.env.NEXT_PUBLIC_API_URL,
@@ -17,7 +16,11 @@ axiosInstance.interceptors.response.use(
   async error => {
     const originalRequest = error.config;
 
-    if (error.response?.status !== 401 || originalRequest._retry) {
+    if (
+      originalRequest.url?.includes("auth") ||
+      error.response?.status !== 401 ||
+      originalRequest._retry
+    ) {
       return Promise.reject(error);
     }
 
@@ -37,7 +40,7 @@ axiosInstance.interceptors.response.use(
       await refreshPromise;
       return axiosInstance(originalRequest);
     } catch {
-      deleteAuthCookies().catch(console.error);
+      axios.post("/api/mock/auth/logout").catch(console.error);
       window.location.href = "/login";
       return Promise.reject("Session expired! Please login again.");
     } finally {
