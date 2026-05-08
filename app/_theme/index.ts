@@ -1,5 +1,6 @@
 import { createTheme } from "@mui/material/styles";
 import * as colors from "./colors";
+import * as components from "./components";
 import { DARK } from "./dark";
 import { LIGHT } from "./light";
 
@@ -18,6 +19,7 @@ const theme = createTheme({
     light: LIGHT,
     dark: DARK,
   },
+  components,
 });
 
 export default theme;
