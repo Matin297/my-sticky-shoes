@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import "./globals.css";
 import { isProductionEnv } from "@/lib/utils";
+import CustomSonnerToast from "./_components/CustomSonnerToast";
 import PWAInstallationPrompt from "./_components/PWAInstallationPrompt";
 import ServiceWorkerUpdatePrompt from "./_components/ServiceWorkerUpdatePrompt";
 import { Providers } from "./_providers";
@@ -18,7 +19,10 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body>
-        <Providers>{children}</Providers>
+        <Providers>
+          <CustomSonnerToast />
+          {children}
+        </Providers>
 
         {isProductionEnv && <PWAInstallationPrompt />}
         {isProductionEnv && <ServiceWorkerUpdatePrompt />}
