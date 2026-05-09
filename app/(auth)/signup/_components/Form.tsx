@@ -1,22 +1,14 @@
 "use client";
 
 import { zodResolver } from "@hookform/resolvers/zod";
-import { VisibilityOffOutlined, VisibilityOutlined } from "@mui/icons-material";
-import {
-  Button,
-  IconButton,
-  InputAdornment,
-  Paper,
-  Stack,
-  TextField,
-  Typography,
-} from "@mui/material";
+import { Button, Paper, Stack, Typography } from "@mui/material";
 import { useQueryClient } from "@tanstack/react-query";
 import { useRouter } from "next/navigation";
-import { useState } from "react";
-import { useForm } from "react-hook-form";
+import { FormProvider, useForm } from "react-hook-form";
 import { toast } from "sonner";
 import { z } from "zod";
+import { FormPasswordField } from "@/components/FormPasswordTextField";
+import { FormTextField } from "@/components/FormTextField";
 import { LinkButton } from "@/components/LinkButton";
 import { getGetCurrentUserQueryKey, useSignup } from "@/services/generated/auth/auth";
 
@@ -37,16 +29,18 @@ type SignupFormData = z.infer<typeof signupSchema>;
 export default function SignupForm() {
   const router = useRouter();
   const queryClient = useQueryClient();
-  const [isPasswordVisible, setIsPasswordVisible] = useState(false);
 
-  const {
-    register,
-    handleSubmit,
-    formState: { errors },
-  } = useForm<SignupFormData>({
+  const methods = useForm<SignupFormData>({
     resolver: zodResolver(signupSchema),
     mode: "onBlur",
+    defaultValues: {
+      name: "",
+      email: "",
+      password: "",
+      confirmPassword: "",
+    },
   });
+  const { handleSubmit } = methods;
 
   const { mutate, isPending } = useSignup();
 
@@ -69,78 +63,32 @@ export default function SignupForm() {
         Create Account
       </Typography>
 
-      <Stack spacing={4} component="form" onSubmit={handleFormSubmit} noValidate>
-        <Stack spacing={2}>
-          <TextField
-            label="Name"
-            {...register("name")}
-            error={Boolean(errors.name)}
-            helperText={errors.name?.message}
-            disabled={isPending}
-          />
+      <FormProvider {...methods}>
+        <Stack spacing={4} component="form" onSubmit={handleFormSubmit} noValidate>
+          <Stack spacing={2}>
+            <FormTextField label="Name" name="name" disabled={isPending} />
+            <FormTextField label="E-mail" type="email" name="email" disabled={isPending} />
+            <FormPasswordField label="Password" name="password" disabled={isPending} />
+            <FormPasswordField
+              label="Confirm Password"
+              name="confirmPassword"
+              disabled={isPending}
+            />
+          </Stack>
 
-          <TextField
-            label="E-mail"
-            type="email"
-            {...register("email")}
-            error={Boolean(errors.email)}
-            helperText={errors.email?.message}
-            disabled={isPending}
-          />
-
-          <TextField
-            label="Password"
-            type={isPasswordVisible ? "text" : "password"}
-            {...register("password")}
-            error={Boolean(errors.password)}
-            helperText={errors.password?.message}
-            disabled={isPending}
-            slotProps={{
-              input: {
-                endAdornment: (
-                  <InputAdornment position="end">
-                    <IconButton onClick={() => setIsPasswordVisible(prev => !prev)} edge="end">
-                      {isPasswordVisible ? <VisibilityOffOutlined /> : <VisibilityOutlined />}
-                    </IconButton>
-                  </InputAdornment>
-                ),
-              },
-            }}
-          />
-
-          <TextField
-            label="Confirm Password"
-            type={isPasswordVisible ? "text" : "password"}
-            {...register("confirmPassword")}
-            error={Boolean(errors.confirmPassword)}
-            helperText={errors.confirmPassword?.message}
-            disabled={isPending}
-            slotProps={{
-              input: {
-                endAdornment: (
-                  <InputAdornment position="end">
-                    <IconButton onClick={() => setIsPasswordVisible(prev => !prev)} edge="end">
-                      {isPasswordVisible ? <VisibilityOffOutlined /> : <VisibilityOutlined />}
-                    </IconButton>
-                  </InputAdornment>
-                ),
-              },
-            }}
-          />
+          <Stack spacing={1}>
+            <Button disabled={isPending} size="large" variant="contained" type="submit">
+              Signup
+            </Button>
+            <Typography align="center" variant="subtitle2">
+              Or
+            </Typography>
+            <LinkButton href="/login" size="large" variant="outlined">
+              Login
+            </LinkButton>
+          </Stack>
         </Stack>
-
-        <Stack spacing={1}>
-          <Button disabled={isPending} size="large" variant="contained" type="submit">
-            Signup
-          </Button>
-          <Typography align="center" variant="subtitle2">
-            Or
-          </Typography>
-          <LinkButton href="/login" size="large" variant="outlined">
-            Login
-          </LinkButton>
-        </Stack>
-      </Stack>
+      </FormProvider>
     </Paper>
   );
 }

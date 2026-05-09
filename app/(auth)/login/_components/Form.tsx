@@ -1,23 +1,15 @@
 "use client";
 
 import { zodResolver } from "@hookform/resolvers/zod";
-import { VisibilityOffOutlined, VisibilityOutlined } from "@mui/icons-material";
-import {
-  Button,
-  IconButton,
-  InputAdornment,
-  Paper,
-  Stack,
-  TextField,
-  Typography,
-} from "@mui/material";
+import { Button, Paper, Stack, Typography } from "@mui/material";
 import { useQueryClient } from "@tanstack/react-query";
 import { isAxiosError } from "axios";
 import { useRouter } from "next/navigation";
-import { useState } from "react";
-import { useForm } from "react-hook-form";
+import { FormProvider, useForm } from "react-hook-form";
 import { toast } from "sonner";
 import { z } from "zod";
+import { FormPasswordField } from "@/components/FormPasswordTextField";
+import { FormTextField } from "@/components/FormTextField";
 import { LinkButton } from "@/components/LinkButton";
 import {
   getGetCurrentUserQueryKey,
@@ -36,16 +28,15 @@ export default function LoginForm() {
   const router = useRouter();
   const queryClient = useQueryClient();
 
-  const [isPasswordVisible, setIsPasswordVisible] = useState(false);
-
-  const {
-    register,
-    handleSubmit,
-    formState: { errors },
-  } = useForm<LoginFormData>({
+  const methods = useForm<LoginFormData>({
     resolver: zodResolver(loginSchema),
     mode: "onBlur",
+    defaultValues: {
+      password: "",
+      email: "",
+    },
   });
+  const { handleSubmit } = methods;
 
   const { mutate, isPending } = useLogin();
 
@@ -75,49 +66,26 @@ export default function LoginForm() {
         Welcome Back
       </Typography>
 
-      <Stack spacing={4} component="form" onSubmit={handleFormSubmit} noValidate>
-        <Stack spacing={2}>
-          <TextField
-            label="E-mail"
-            type="email"
-            {...register("email")}
-            error={Boolean(errors.email)}
-            helperText={errors.email?.message}
-            disabled={isPending}
-          />
-          <TextField
-            label="Password"
-            type={isPasswordVisible ? "text" : "password"}
-            {...register("password")}
-            error={Boolean(errors.password)}
-            helperText={errors.password?.message}
-            disabled={isPending}
-            slotProps={{
-              input: {
-                endAdornment: (
-                  <InputAdornment position="end">
-                    <IconButton onClick={() => setIsPasswordVisible(prev => !prev)} edge="end">
-                      {isPasswordVisible ? <VisibilityOffOutlined /> : <VisibilityOutlined />}
-                    </IconButton>
-                  </InputAdornment>
-                ),
-              },
-            }}
-          />
-        </Stack>
+      <FormProvider {...methods}>
+        <Stack spacing={4} component="form" onSubmit={handleFormSubmit} noValidate>
+          <Stack spacing={2}>
+            <FormTextField name="email" label="E-mail" type="email" disabled={isPending} />
+            <FormPasswordField name="password" label="Password" disabled={isPending} />
+          </Stack>
 
-        <Stack spacing={1}>
-          <Button disabled={isPending} size="large" variant="contained" type="submit">
-            Login
-          </Button>
-          <Typography align="center" variant="subtitle2">
-            Or
-          </Typography>
-          <LinkButton href="/signup" size="large" variant="outlined">
-            Signup
-          </LinkButton>
+          <Stack spacing={1}>
+            <Button disabled={isPending} size="large" variant="contained" type="submit">
+              Login
+            </Button>
+            <Typography align="center" variant="subtitle2">
+              Or
+            </Typography>
+            <LinkButton href="/signup" size="large" variant="outlined">
+              Signup
+            </LinkButton>
+          </Stack>
         </Stack>
-      </Stack>
+      </FormProvider>
     </Paper>
   );
 }
