@@ -45,10 +45,6 @@ export default function LoginForm() {
   } = useForm<LoginFormData>({
     resolver: zodResolver(loginSchema),
     mode: "onBlur",
-    defaultValues: {
-      email: "",
-      password: "",
-    },
   });
 
   const { mutate, isPending } = useLogin();
@@ -75,14 +71,13 @@ export default function LoginForm() {
 
   return (
     <Paper sx={{ padding: 2 }}>
-      <Typography gutterBottom variant="h1">
-        Welcome
+      <Typography gutterBottom variant="h3">
+        Welcome Back
       </Typography>
 
       <Stack spacing={4} component="form" onSubmit={handleFormSubmit} noValidate>
         <Stack spacing={2}>
           <TextField
-            size="medium"
             label="E-mail"
             type="email"
             {...register("email")}
