@@ -79,17 +79,25 @@ paths:
               required:
                 - email
                 - password
+                - confirmPassword
                 - name
               properties:
                 email:
                   type: string
                   format: email
+                  example: user@example.com
                 password:
                   type: string
                   minLength: 6
+                  example: password123
+                confirmPassword:
+                  type: string
+                  minLength: 6
+                  example: password123
                 name:
                   type: string
                   minLength: 2
+                  example: John Doe
       responses:
         '200':
           description: Successful Signup
@@ -102,8 +110,22 @@ paths:
                     $ref: '#/components/schemas/User'
         '400':
           description: Missing fields or invalid data
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '409':
+          description: User already exists
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
         '500':
           description: Internal server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
 
   /auth/me:
     get:

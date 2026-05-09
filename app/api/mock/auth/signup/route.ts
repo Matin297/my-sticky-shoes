@@ -5,13 +5,14 @@ import { MOCK_ACCESS_TOKEN, MOCK_REFRESH_TOKEN, MOCK_USER } from "@/lib/mock-dat
 export async function POST(request: NextRequest) {
   try {
     const body = await request.json();
-    const { email, password } = body;
+    const { email, password, name, confirmPassword } = body;
 
-    if (!email || !password) {
-      return NextResponse.json(
-        { error: "Missing required fields: email, password" },
-        { status: 400 },
-      );
+    if (!email || !password || !name || !confirmPassword) {
+      return NextResponse.json({ error: "Missing required fields" }, { status: 400 });
+    }
+
+    if (email === MOCK_USER.email) {
+      return NextResponse.json({ error: "User account already exists" }, { status: 409 });
     }
 
     setAuthCookies({ accessToken: MOCK_ACCESS_TOKEN, refreshToken: MOCK_REFRESH_TOKEN });
