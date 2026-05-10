@@ -13,6 +13,7 @@ export const metadata: Metadata = {
   },
   description:
     "My Sticky Shoes is here to help you to stick to good habits and experiment fearlessly",
+  manifest: "/manifest.webmanifest",
 };
 
 export default function RootLayout({
