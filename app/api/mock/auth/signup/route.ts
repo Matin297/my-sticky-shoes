@@ -15,7 +15,7 @@ export async function POST(request: NextRequest) {
       return NextResponse.json({ error: "User account already exists" }, { status: 409 });
     }
 
-    setAuthCookies({ accessToken: MOCK_ACCESS_TOKEN, refreshToken: MOCK_REFRESH_TOKEN });
+    await setAuthCookies({ accessToken: MOCK_ACCESS_TOKEN, refreshToken: MOCK_REFRESH_TOKEN });
 
     return NextResponse.json({
       user: MOCK_USER,
