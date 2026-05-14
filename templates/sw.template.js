@@ -318,6 +318,18 @@ async function handlePushEvent(event) {
     return;
   }
 
+  const clients = await self.clients.matchAll({
+    type: "window",
+    includeUncontrolled: true,
+  });
+
+  const isAppFocused = clients.some(client => client.focused);
+
+  if (isAppFocused) {
+    console.log("📱 App is in foreground - skipping system notification");
+    return;
+  }
+
   const { title, options } = createNotificationOptions(payload);
 
   try {
