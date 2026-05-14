@@ -10,6 +10,7 @@ import { z } from "zod";
 import { FormPasswordField } from "@/components/FormPasswordTextField";
 import { FormTextField } from "@/components/FormTextField";
 import { LinkButton } from "@/components/LinkButton";
+import { usePushNotifications } from "@/hooks/usePushNotifications";
 import { getGetCurrentUserQueryKey, useSignup } from "@/services/generated/auth/auth";
 
 const signupSchema = z
@@ -29,6 +30,7 @@ type SignupFormData = z.infer<typeof signupSchema>;
 export default function SignupForm() {
   const router = useRouter();
   const queryClient = useQueryClient();
+  const { enableNotifications } = usePushNotifications();
 
   const methods = useForm<SignupFormData>({
     resolver: zodResolver(signupSchema),
@@ -52,6 +54,7 @@ export default function SignupForm() {
           queryClient.invalidateQueries({ queryKey: getGetCurrentUserQueryKey() });
           router.push("/");
           toast.success("Welcome back to My Sticky Shoes!");
+          enableNotifications();
         },
       },
     );

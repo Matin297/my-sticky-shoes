@@ -11,6 +11,7 @@ import { z } from "zod";
 import { FormPasswordField } from "@/components/FormPasswordTextField";
 import { FormTextField } from "@/components/FormTextField";
 import { LinkButton } from "@/components/LinkButton";
+import { usePushNotifications } from "@/hooks/usePushNotifications";
 import {
   getGetCurrentUserQueryKey,
   type LoginMutationError,
@@ -27,6 +28,7 @@ type LoginFormData = z.infer<typeof loginSchema>;
 export default function LoginForm() {
   const router = useRouter();
   const queryClient = useQueryClient();
+  const { enableNotifications } = usePushNotifications();
 
   const methods = useForm<LoginFormData>({
     resolver: zodResolver(loginSchema),
@@ -45,6 +47,7 @@ export default function LoginForm() {
       { data },
       {
         onSuccess() {
+          enableNotifications();
           queryClient.invalidateQueries({ queryKey: getGetCurrentUserQueryKey() });
           router.push("/");
           toast.success("Welcome back to My Sticky Shoes!");
