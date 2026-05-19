@@ -32,6 +32,7 @@ function makeQueryClient() {
         staleTime: STALE_TIME,
         gcTime: GARBAGE_COLLECTION_TIME,
         refetchOnMount: true,
+        throwOnError: true,
         refetchOnReconnect: true,
         refetchOnWindowFocus: true,
         retryDelay: attemptIndex => Math.min(1000 * 2 ** attemptIndex, 30000),
