@@ -14,6 +14,7 @@ export const metadata: Metadata = {
   description:
     "My Sticky Shoes is here to help you to stick to good habits and experiment fearlessly",
   manifest: "/manifest.webmanifest",
+  keywords: ["sticky", "shoes", "pwa", "technology", "software", "cutting edge"],
 };
 
 export default function RootLayout({
