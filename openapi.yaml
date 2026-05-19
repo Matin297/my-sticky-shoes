@@ -127,25 +127,6 @@ paths:
               schema:
                 $ref: '#/components/schemas/Error'
 
-  /auth/me:
-    get:
-      summary: Get Current User
-      operationId: getCurrentUser
-      tags:
-        - Auth
-      responses:
-        '200':
-          description: User data retrieved
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  user:
-                    $ref: '#/components/schemas/User'
-        '401':
-          description: Unauthorized request
-
   /auth/logout:
     post:
       summary: Logout user
@@ -236,6 +217,29 @@ paths:
               schema:
                 $ref: '#/components/schemas/Error'
 
+  /me:
+    get:
+      summary: Get Current User
+      operationId: getCurrentUser
+      tags:
+        - Auth
+      responses:
+        '200':
+          description: User data retrieved
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  user:
+                    $ref: '#/components/schemas/User'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+
 components:
   schemas:
     User:
@@ -244,6 +248,8 @@ components:
         id:
           type: string
           example: "1"
+        avatar:
+          type: string
         email:
           type: string
           format: email

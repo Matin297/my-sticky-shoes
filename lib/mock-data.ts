@@ -6,4 +6,6 @@ export const MOCK_USER = {
   email: "test@example.com",
   name: "Test User",
   password: "123456",
+  avatar:
+    "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRLS-71p2JPYoskTMrXTpoFYd2vvhLaETEHVg&s",
 };
