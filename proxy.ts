@@ -1,6 +1,6 @@
 import { cookies } from "next/headers";
 import { type NextRequest, NextResponse } from "next/server";
-import { ACCESS_TOKEN } from "@/lib/cookies";
+import { REFRESH_TOKEN } from "@/lib/cookies";
 
 const PUBLIC_ROUTES = ["/login", "/signup", "/sw.js", "/manifest.webmanifest"];
 
@@ -9,17 +9,17 @@ export async function proxy(request: NextRequest) {
 
   const isPublicRoute = PUBLIC_ROUTES.includes(pathname);
   const isPrivateRoute = !isPublicRoute;
-  const accessToken = (await cookies()).get(ACCESS_TOKEN)?.value;
+  const refreshToken = (await cookies()).get(REFRESH_TOKEN)?.value;
 
   if (isPublicRoute) {
-    if (accessToken) {
+    if (refreshToken) {
       return NextResponse.redirect(new URL("/", request.nextUrl));
     }
 
     return NextResponse.next();
   }
 
-  if (isPrivateRoute && !accessToken) {
+  if (isPrivateRoute && !refreshToken) {
     const redirectUrl = new URL("/login", request.url);
     redirectUrl.searchParams.set("callbackUrl", pathname);
     return NextResponse.redirect(redirectUrl);
