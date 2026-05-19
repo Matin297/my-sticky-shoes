@@ -1,3 +1,5 @@
+"use client";
+
 import { Button, type ButtonProps } from "@mui/material";
 import type { Route } from "next";
 import Link from "next/link";
