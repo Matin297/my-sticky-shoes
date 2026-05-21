@@ -14,17 +14,28 @@ import {
   type SxProps,
   type Theme,
 } from "@mui/material";
-import { useEffect, useState } from "react";
+import {
+  type Dispatch,
+  type SetStateAction,
+  useCallback,
+  useEffect,
+  useRef,
+  useState,
+} from "react";
 import { ErrorCode, type FileRejection, useDropzone } from "react-dropzone";
 import { toast } from "sonner";
 import { MAX_FILE_SIZE_5MB } from "@/lib/constants";
 import { formatFileSizeInBytesUnit, uploadFile } from "./utils";
 
 interface AvatarUploaderProps {
+  disabled?: boolean;
   size?: number;
   maxSizeBytes?: number;
   avatar?: string;
-  onAvatarChange: (fileURL?: string) => void;
+  defaultAvatar?: string;
+  onAvatarChange: (fileURL: string) => void;
+  uploading: boolean;
+  setUploading: Dispatch<SetStateAction<boolean>>;
   sx?: SxProps<Theme>;
 }
 
@@ -37,23 +48,45 @@ const ACCEPT = {
 export default function AvatarUploader({
   sx,
   size = 120,
-  onAvatarChange,
+  disabled,
   avatar,
+  onAvatarChange,
+  defaultAvatar = "",
   maxSizeBytes = MAX_FILE_SIZE_5MB,
+  uploading,
+  setUploading,
 }: AvatarUploaderProps) {
-  const [uploading, setUploading] = useState(false);
-  const [preview, setPreview] = useState<string | null | undefined>(null);
+  const [_preview, _setPreview] = useState<string>("");
+
+  const isPreviewControlled = typeof avatar !== "undefined";
+  const preview = isPreviewControlled ? avatar : _preview;
+
+  const onAvatarChangeRef = useRef(onAvatarChange);
 
   useEffect(() => {
-    setPreview(avatar);
-  }, [avatar]);
+    onAvatarChangeRef.current = onAvatarChange;
+  }, [onAvatarChange]);
+
+  const setPreview = useCallback(
+    (value: string) => {
+      onAvatarChangeRef.current(value ?? "");
+      if (!isPreviewControlled) {
+        _setPreview(value);
+      }
+    },
+    [isPreviewControlled],
+  );
+
+  useEffect(() => {
+    setPreview(defaultAvatar);
+  }, [defaultAvatar, setPreview]);
 
   const { getRootProps, getInputProps, isDragActive } = useDropzone({
     accept: ACCEPT,
     multiple: false,
     onDrop: handleDrop,
     maxSize: maxSizeBytes,
-    disabled: uploading,
+    disabled: uploading || disabled,
   });
 
   function handleDrop(acceptedFiles: File[], rejectedFiles: FileRejection[]) {
@@ -86,11 +119,9 @@ export default function AvatarUploader({
     setUploading(true);
     try {
       const fileURL = await uploadFile(file);
-      onAvatarChange(fileURL);
       setPreview(fileURL);
       toast.success("Avatar uploaded successfully!");
     } catch {
-      setPreview(avatar);
       toast.error("Failed to upload avatar!");
     } finally {
       setUploading(false);
@@ -98,20 +129,18 @@ export default function AvatarUploader({
   }
 
   function handleRemoveAvatar() {
-    setPreview(null);
-    onAvatarChange("");
+    setPreview("");
   }
 
   function handleCancelUpload() {
-    setPreview(avatar);
-    onAvatarChange(avatar);
+    setPreview(defaultAvatar);
   }
 
   return (
     <Box sx={{ position: "relative", display: "inline-block", width: "fit-content", ...sx }}>
       <input {...getInputProps()} />
       <Avatar
-        src={preview || undefined}
+        src={preview}
         sx={{
           width: size,
           height: size,
@@ -139,12 +168,12 @@ export default function AvatarUploader({
         />
       )}
       <Stack direction="row" sx={{ justifyContent: "center" }}>
-        {preview !== avatar && (
+        {preview !== defaultAvatar && (
           <IconButton
             color="info"
             title="cancel"
             onClick={handleCancelUpload}
-            disabled={uploading}
+            disabled={uploading || disabled}
             aria-label="Cancel Upload"
           >
             <CancelIcon sx={{ fontSize: 18 }} />
@@ -154,7 +183,7 @@ export default function AvatarUploader({
           color="error"
           title="remove"
           onClick={handleRemoveAvatar}
-          disabled={uploading}
+          disabled={uploading || disabled}
           aria-label="Remove avatar"
         >
           <DeleteIcon sx={{ fontSize: 18 }} />
@@ -163,7 +192,7 @@ export default function AvatarUploader({
           title="upload"
           color="secondary"
           {...getRootProps()}
-          disabled={uploading}
+          disabled={uploading || disabled}
           aria-label="Upload avatar"
         >
           <CameraIcon sx={{ fontSize: 18 }} />
