@@ -1,7 +1,7 @@
 "use client";
 
 import { Avatar, Stack, Typography } from "@mui/material";
-import { useGetCurrentUser } from "@/services/generated/auth/auth";
+import { useGetCurrentUser } from "@/services/generated/profile/profile";
 
 export default function ProfileDetails() {
   const { data, isLoading } = useGetCurrentUser();
