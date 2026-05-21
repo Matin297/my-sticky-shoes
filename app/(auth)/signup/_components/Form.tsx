@@ -11,7 +11,8 @@ import { FormPasswordField } from "@/components/FormPasswordTextField";
 import { FormTextField } from "@/components/FormTextField";
 import { LinkButton } from "@/components/LinkButton";
 import { usePushNotifications } from "@/hooks/usePushNotifications";
-import { getGetCurrentUserQueryKey, useSignup } from "@/services/generated/auth/auth";
+import { useSignup } from "@/services/generated/auth/auth";
+import { getGetCurrentUserQueryKey } from "@/services/generated/profile/profile";
 
 const signupSchema = z
   .object({

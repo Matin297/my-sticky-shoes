@@ -12,11 +12,8 @@ import { FormPasswordField } from "@/components/FormPasswordTextField";
 import { FormTextField } from "@/components/FormTextField";
 import { LinkButton } from "@/components/LinkButton";
 import { usePushNotifications } from "@/hooks/usePushNotifications";
-import {
-  getGetCurrentUserQueryKey,
-  type LoginMutationError,
-  useLogin,
-} from "@/services/generated/auth/auth";
+import { type LoginMutationError, useLogin } from "@/services/generated/auth/auth";
+import { getGetCurrentUserQueryKey } from "@/services/generated/profile/profile";
 
 const loginSchema = z.object({
   email: z.email("Please enter a valid email address."),
