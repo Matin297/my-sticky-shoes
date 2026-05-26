@@ -25,6 +25,9 @@ export default function LandingHeader() {
             <LinkButton variant="text" href="#collections">
               Collections
             </LinkButton>
+            <LinkButton variant="text" href="/faq">
+              Faq
+            </LinkButton>
           </Box>
         </Toolbar>
       </Container>

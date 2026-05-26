@@ -2,7 +2,7 @@ import { cookies } from "next/headers";
 import { type NextRequest, NextResponse } from "next/server";
 import { REFRESH_TOKEN } from "@/lib/cookies";
 
-const PUBLIC_ROUTES = ["/login", "/signup", "/sw.js", "/manifest.webmanifest", "/landing"];
+const PUBLIC_ROUTES = ["/login", "/signup", "/sw.js", "/manifest.webmanifest", "/landing", "/faq"];
 
 export async function proxy(request: NextRequest) {
   const { pathname } = request.nextUrl;
