@@ -2,21 +2,23 @@ import { cookies } from "next/headers";
 import { type NextRequest, NextResponse } from "next/server";
 import { REFRESH_TOKEN } from "@/lib/cookies";
 
-const PUBLIC_ROUTES = ["/login", "/signup", "/sw.js", "/manifest.webmanifest", "/landing", "/faq"];
+const PUBLIC_ROUTES = ["/sw.js", "/manifest.webmanifest", "/landing", "/faq"];
+const AUTH_ROUTES = ["/login", "/signup"];
 
 export async function proxy(request: NextRequest) {
   const { pathname } = request.nextUrl;
 
   const isPublicRoute = PUBLIC_ROUTES.includes(pathname);
+  const isAuthRoute = AUTH_ROUTES.includes(pathname);
   const isPrivateRoute = !isPublicRoute;
   const refreshToken = (await cookies()).get(REFRESH_TOKEN)?.value;
 
   if (isPublicRoute) {
-    if (refreshToken) {
-      return NextResponse.redirect(new URL("/", request.nextUrl));
-    }
-
     return NextResponse.next();
+  }
+
+  if (isAuthRoute && refreshToken) {
+    return NextResponse.redirect(new URL("/", request.nextUrl));
   }
 
   if (isPrivateRoute && !refreshToken) {
