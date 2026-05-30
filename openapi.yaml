@@ -295,6 +295,50 @@ paths:
               schema:
                 $ref: '#/components/schemas/Error'
 
+  /products:
+    get:
+      summary: Get products with pagination
+      operationId: getProducts
+      tags:
+        - Products
+      parameters:
+        - name: cursor
+          in: query
+          schema:
+            type: integer
+            default: 10
+        - name: limit
+          in: query
+          description: Number of items per page
+          schema:
+            type: integer
+            default: 10
+      responses:
+        '200':
+          description: Products retrieved successfully
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  products:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/Product'
+                  nextCursor:
+                    type: integer
+                    nullable: true
+                  hasMore:
+                    type: boolean
+                  total:
+                    type: integer
+        '500':
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+
 components:
   schemas:
     User:
@@ -312,6 +356,73 @@ components:
         name:
           type: string
           example: Test User
+
+    Product:
+      type: object
+      properties:
+        id:
+          type: string
+        name:
+          type: string
+        price:
+          type: number
+        description:
+          type: string
+        image:
+          type: string
+        category:
+          type: object
+          properties:
+            id:
+              type: string
+            title:
+              type: string
+          required:
+            - id
+            - title
+        rating:
+          type: number
+        reviewCount:
+          type: integer
+        stock:
+          type: integer
+        isNew:
+          type: boolean
+        isFeatured:
+          type: boolean
+        brand:
+          type: object
+          properties:
+            id:
+              type: string
+            title:
+              type: string
+          required:
+            - id
+            - title
+        colors:
+          type: array
+          items:
+            type: string
+        sizes:
+          type: array
+          items:
+            type: string
+      required:
+        - id
+        - name
+        - price
+        - description
+        - image
+        - category
+        - rating
+        - reviewCount
+        - stock
+        - isNew
+        - isFeatured
+        - brand
+        - colors
+        - sizes
 
     Error:
       type: object

@@ -1,0 +1,126 @@
+import { faker } from "@faker-js/faker";
+
+faker.seed(123);
+
+const BRANDS = [
+  {
+    title: "Nike",
+    id: faker.string.uuid(),
+  },
+  {
+    title: "Adidas",
+    id: faker.string.uuid(),
+  },
+  {
+    title: "Puma",
+    id: faker.string.uuid(),
+  },
+  {
+    title: "New Balance",
+    id: faker.string.uuid(),
+  },
+  {
+    title: "Reebok",
+    id: faker.string.uuid(),
+  },
+  {
+    title: "Under Armour",
+    id: faker.string.uuid(),
+  },
+  {
+    title: "Vans",
+    id: faker.string.uuid(),
+  },
+  {
+    title: "Converse",
+    id: faker.string.uuid(),
+  },
+] as const;
+
+const CATEGORIES = [
+  {
+    title: "Running",
+    id: faker.string.uuid(),
+  },
+  {
+    title: "Casual",
+    id: faker.string.uuid(),
+  },
+  {
+    title: "Formal",
+    id: faker.string.uuid(),
+  },
+  {
+    title: "Sports",
+    id: faker.string.uuid(),
+  },
+  {
+    title: "Boots",
+    id: faker.string.uuid(),
+  },
+  {
+    title: "Sandals",
+    id: faker.string.uuid(),
+  },
+  {
+    title: "Sneakers",
+    id: faker.string.uuid(),
+  },
+  {
+    title: "Loafers",
+    id: faker.string.uuid(),
+  },
+] as const;
+
+const COLORS = ["Black", "White", "Red", "Blue", "Brown", "Gray", "Navy", "Tan"];
+
+const SIZES = ["US 6", "US 7", "US 8", "US 9", "US 10", "US 11", "US 12"];
+
+export interface Product {
+  id: string;
+  name: string;
+  price: number;
+  description: string;
+  image: string;
+  category: {
+    id: string;
+    title: string;
+  };
+  rating: number;
+  reviewCount: number;
+  stock: number;
+  isNew: boolean;
+  isFeatured: boolean;
+  brand: {
+    id: string;
+    title: string;
+  };
+  colors: string[];
+  sizes: string[];
+}
+
+export const MOCK_PRODUCTS: Product[] = Array.from({ length: 200 }, () => ({
+  id: faker.string.uuid(),
+  name: faker.commerce.productName(),
+  price: parseFloat(faker.commerce.price({ min: 29, max: 299 })),
+  description: faker.commerce.productDescription(),
+  image: faker.image.url({ width: 400, height: 300 }),
+  category: faker.helpers.arrayElement(CATEGORIES),
+  rating: faker.number.float({ min: 1, max: 5, fractionDigits: 1 }),
+  reviewCount: faker.number.int({ min: 0, max: 1000 }),
+  stock: faker.number.int({ min: 0, max: 200 }),
+  isNew: faker.datatype.boolean({ probability: 0.2 }),
+  isFeatured: faker.datatype.boolean({ probability: 0.2 }),
+  brand: faker.helpers.arrayElement(BRANDS),
+  colors: faker.helpers.arrayElements(COLORS, { min: 2, max: COLORS.length }),
+  sizes: faker.helpers.arrayElements(SIZES, { min: 1, max: SIZES.length }),
+}));
+
+export const getProductsByCategoryId = (id: string) =>
+  MOCK_PRODUCTS.filter(p => p.category.id === id);
+
+export const getProductsByBrandId = (id: string) => MOCK_PRODUCTS.filter(p => p.brand.id === id);
+
+export const getFeaturedProducts = () => MOCK_PRODUCTS.filter(p => p.isFeatured);
+
+export const getNewProducts = () => MOCK_PRODUCTS.filter(p => p.isNew);
