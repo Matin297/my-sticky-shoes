@@ -20,6 +20,8 @@ export default defineConfig({
           useQuery: true,
           useMutation: true,
           usePrefetch: true,
+          useInfinite: true,
+          useInfiniteQueryParam: "cursor",
         },
       },
     },
