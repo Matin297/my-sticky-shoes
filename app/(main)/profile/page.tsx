@@ -12,7 +12,7 @@ export default function ProfilePage() {
   return (
     <>
       <Stack spacing={1} direction="row" sx={{ alignItems: "center", mb: 4 }}>
-        <Typography variant="h1">Profile</Typography>
+        <Typography variant="h2">Profile</Typography>
         <Link href="/profile/edit">
           <IconButton size="large" color="secondary">
             <Edit />

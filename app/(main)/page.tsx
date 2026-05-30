@@ -1,6 +1,6 @@
 import { Typography } from "@mui/material";
 import type { Metadata } from "next";
-import { LinkButton } from "@/components/LinkButton";
+import InfiniteProducts from "./_components/InfiniteProducts";
 
 export const metadata: Metadata = {
   title: "Home",
@@ -9,8 +9,13 @@ export const metadata: Metadata = {
 export default function HomePage() {
   return (
     <>
-      <Typography variant="h1">My Sticky Shoes</Typography>
-      <LinkButton href="/profile">Profile</LinkButton>
+      <Typography component="h1" sx={{ typography: { xs: "h3", md: "h2" } }}>
+        Products
+      </Typography>
+      <Typography variant="body1" color="textSecondary" sx={{ mb: 2 }}>
+        Discover our premium collection of footwear
+      </Typography>
+      <InfiniteProducts />
     </>
   );
 }

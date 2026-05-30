@@ -9,7 +9,7 @@ export const metadata: Metadata = {
 export default function EditProfilePage() {
   return (
     <>
-      <Typography align="center" gutterBottom variant="h1">
+      <Typography align="center" gutterBottom variant="h2">
         Edit Profile
       </Typography>
       <EditProfileForm />
