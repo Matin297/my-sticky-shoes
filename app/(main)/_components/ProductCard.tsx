@@ -39,11 +39,11 @@ export function ProductCard({ product, priority }: ProductCardProps) {
         />
       </Box>
       <CardContent sx={{ flexGrow: 1 }}>
-        <Typography variant="subtitle1" color="textSecondary">
-          {product.category.title}
-        </Typography>
-        <Typography variant="h6" component="h2" gutterBottom noWrap>
+        <Typography variant="h6" component="h2" noWrap>
           {product.name}
+        </Typography>
+        <Typography variant="subtitle1" component="h3" color="textSecondary" gutterBottom>
+          {product.category.title}
         </Typography>
         <Box sx={{ display: "flex", alignItems: "center", mb: 1 }}>
           <Rating value={product.rating} precision={0.1} size="small" readOnly />
