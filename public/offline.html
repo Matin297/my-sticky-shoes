@@ -1,27 +1,174 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>Offline!</title>
-
+    <title>Offline - My Sticky Shoes</title>
     <style>
+      :root {
+        --primary-main: #4f46e5;
+        --primary-light: #818cf8;
+        --primary-dark: #4338ca;
+
+        --secondary-main: #0d9488;
+        --secondary-light: #2dd4bf;
+
+        --background-default: #f8fafc;
+        --background-paper: #ffffff;
+
+        --text-primary: #0f172a;
+        --text-secondary: #475569;
+
+        --divider: #e2e8f0;
+
+        --spacing: 8px;
+        --radius-md: 8px;
+        --radius-lg: 12px;
+
+        --bp-mobile: 600px;
+
+        --error-main: #e11d48;
+        --success-main: #059669;
+      }
+
+      @media (prefers-color-scheme: dark) {
+        :root {
+          --primary-main: #818cf8;
+          --primary-light: #a5b4fc;
+          --primary-dark: #6366f1;
+
+          --secondary-main: #2dd4bf;
+          --secondary-light: #5eead4;
+
+          --background-default: #0f172a;
+          --background-paper: #1e293b;
+
+          --text-primary: #f8fafc;
+          --text-secondary: #94a3b8;
+
+          --divider: #475569;
+
+          --error-main: #fb7185;
+          --success-main: #34d399;
+        }
+      }
+
       * {
         margin: 0;
         padding: 0;
         box-sizing: border-box;
       }
+
+      body {
+        background: var(--background-default);
+        min-height: 100vh;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: calc(var(--spacing) * 1);
+      }
+
+      .container {
+        width: 100%;
+        max-width: var(--bp-mobile);
+        background: var(--background-paper);
+        border-radius: var(--radius-md);
+        padding: calc(var(--spacing) * 3);
+        text-align: center;
+      }
+
+      .icon {
+        font-size: 80px;
+        margin-bottom: calc(var(--spacing) * 3);
+      }
+
+      h1 {
+        font-size: 28px;
+        font-weight: 600;
+        color: var(--text-primary);
+        margin-bottom: calc(var(--spacing) * 2);
+      }
+
+      p {
+        font-size: 16px;
+        color: var(--text-secondary);
+        line-height: 1.6;
+        margin-bottom: calc(var(--spacing) * 4);
+      }
+
+      .button {
+        display: inline-flex;
+        align-items: center;
+        gap: var(--spacing);
+        background: var(--primary-dark);
+        color: white;
+        border: none;
+        padding: calc(var(--spacing) * 1) calc(var(--spacing) * 2);
+        font-size: 16px;
+        border-radius: var(--radius-md);
+        cursor: pointer;
+        text-decoration: none;
+      }
+
+      .button:hover {
+        background: var(--primary-main);
+      }
+
+      .retry-icon {
+        font-size: 18px;
+      }
+
+      .tips {
+        margin-top: calc(var(--spacing) * 4);
+        padding-top: calc(var(--spacing) * 3);
+        border-top: 1px solid var(--divider);
+      }
+
+      .tips p {
+        font-size: 13px;
+        color: var(--text-secondary);
+        margin-bottom: 0;
+        opacity: 0.7;
+      }
+
+      /* Mobile Breakpoint */
+      @media (max-width: 600px) {
+        .container {
+          padding: calc(var(--spacing) * 4) calc(var(--spacing) * 2);
+        }
+
+        h1 {
+          font-size: calc(var(--spacing) * 3);
+        }
+
+        .icon {
+          font-size: 64px;
+        }
+      }
     </style>
   </head>
 
   <body>
-    <main>
-      <h1>🔌 You're offline</h1>
+    <div class="container">
+      <div class="icon">🔌</div>
+      <h1>You're offline</h1>
       <p>
-        No internet connection detected. Please check your network and try
-        again.
+        No internet connection detected.<br />
+        Please check your network and try again.
       </p>
-      <a href="/">⟳ Try Again</a>
-    </main>
+      <a href="/" class="button">
+        <span class="retry-icon">⟳</span>
+        Try Again
+      </a>
+      <div class="tips">
+        <p>💡 Tip: Once you're back online, you can continue exploring!</p>
+      </div>
+    </div>
+
+    <script>
+      window.addEventListener("online", () => {
+        window.location.href = "/";
+      });
+    </script>
   </body>
 </html>
