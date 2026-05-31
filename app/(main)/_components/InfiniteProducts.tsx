@@ -7,7 +7,7 @@ import { useGetProductsInfinite } from "@/services/generated/products/products";
 import { ProductCard } from "./ProductCard";
 
 const LIMIT = 10;
-const PRIORITY = LIMIT / 2;
+const PRIORITY = 1;
 
 export default function InfiniteProducts() {
   const { data, isLoading, fetchNextPage, isFetchingNextPage, hasNextPage, isFetchNextPageError } =
