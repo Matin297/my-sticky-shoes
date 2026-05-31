@@ -8,6 +8,7 @@ A personal playground for exploring frontend technologies.
 - Biome for linting/formatting
 - Lefthook + Commitlint for Git conventions
 - TypeScript (strict mode)
+- [PWA Builder - Image Generator](https://www.pwabuilder.com/imageGenerator)
 
 ## Why "Sticky Shoes"?
 
@@ -17,7 +18,7 @@ Because I want to stick to good habits and experiment fearlessly.
 
 - [ ] View Transitions
 - [ ] PWA Stuff
-- [ ] Playing around with authentication flows
+- [x] Playing around with authentication flows
 - [ ] TanStack Query, Table, etc.
-- [ ] Try a UI library (MUI? shadcn? probably MUI)
+- [x] Try a UI library (MUI? shadcn? probably MUI)
 - [ ] Actually build something useful? Maybe
