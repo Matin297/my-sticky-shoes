@@ -1,8 +1,11 @@
 "use client";
 
+import { Check, Close, SystemUpdate } from "@mui/icons-material";
+import { Alert, IconButton } from "@mui/material";
 import { useEffect, useState } from "react";
 
 export default function ServiceWorkerUpdatePrompt() {
+  const [dismissed, setDismissed] = useState(false);
   const [waitingWorker, setWaitingWorker] = useState<ServiceWorker | null>(null);
 
   useEffect(() => {
@@ -58,18 +61,40 @@ export default function ServiceWorkerUpdatePrompt() {
   function setupControllerChangeEvent() {
     const handleReload = () => {
       setWaitingWorker(null);
+      setDismissed(true);
       navigator.serviceWorker.removeEventListener("controllerchange", handleReload);
       window.location.reload();
     };
     navigator.serviceWorker.addEventListener("controllerchange", handleReload);
   }
 
-  if (waitingWorker)
-    return (
-      <button type="button" onClick={handleUpdateServiceWorker}>
-        Update Available
-      </button>
-    );
+  function handleDismiss() {
+    setDismissed(true);
+  }
 
-  return null;
+  if (dismissed || !waitingWorker) {
+    return null;
+  }
+
+  return (
+    <Alert
+      severity="info"
+      variant="filled"
+      icon={<SystemUpdate />}
+      action={
+        <>
+          <IconButton color="inherit" size="small" onClick={handleUpdateServiceWorker}>
+            <Check />
+          </IconButton>
+          <IconButton color="inherit" size="small" onClick={handleDismiss}>
+            <Close />
+          </IconButton>
+        </>
+      }
+      onClose={handleDismiss}
+      sx={{ alignItems: "center" }}
+    >
+      <strong>New version available!</strong> Update to get the latest features.
+    </Alert>
+  );
 }
