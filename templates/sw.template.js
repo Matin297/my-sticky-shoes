@@ -18,8 +18,8 @@ function initializeFirebaseMessaging() {
 
 const NOTIFICATION_DISPLAY_CONFIG = {
   TITLE: "My Sticky Shoes",
-  ICON: "", // TODO
-  BADGE: "", // TODO
+  ICON: "/assets/android/192.png",
+  BADGE: "/assets/android/96.png",
   URL: "/",
   VIBRATION_PATTERN: [100, 50, 100],
   TAG: `notification-${Date.now()}`,
@@ -34,8 +34,10 @@ const CACHE_CONFIG = {
   PRECACHE_FILES: [
     OFFLINE_URL,
     "/manifest.webmanifest",
-    // "/icons/app-192x192.png", // TODO
-    // "/icons/app-512x512.png", // TODO
+    "/assets/android/96.png",
+    "/assets/android/144.png",
+    "/assets/android/192.png",
+    "/assets/android/512.png",
   ],
   STATIC_CACHE_NAME: `${CACHE_PREFIX}--static.v${CACHE_VERSION}`,
   IMAGE_CACHE_NAME: `${CACHE_PREFIX}--images.v${CACHE_VERSION}`,
