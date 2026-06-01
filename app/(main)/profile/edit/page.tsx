@@ -1,5 +1,5 @@
-import { Typography } from "@mui/material";
 import type { Metadata } from "next";
+import PageMainHeading from "@/app/(main)/_components/PageMainHeading";
 import EditProfileForm from "./_components/Form";
 
 export const metadata: Metadata = {
@@ -9,9 +9,7 @@ export const metadata: Metadata = {
 export default function EditProfilePage() {
   return (
     <>
-      <Typography align="center" gutterBottom variant="h2">
-        Edit Profile
-      </Typography>
+      <PageMainHeading>Edit Profile</PageMainHeading>
       <EditProfileForm />
     </>
   );
