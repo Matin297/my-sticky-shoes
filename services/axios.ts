@@ -1,5 +1,7 @@
 import axios, { type AxiosRequestConfig } from "axios";
 
+const PUBLIC_ENDPOINTS = ["auth", "products"];
+
 export const axiosInstance = axios.create({
   baseURL: process.env.NEXT_PUBLIC_API_URL,
   timeout: 5000,
@@ -15,12 +17,9 @@ axiosInstance.interceptors.response.use(
   response => response,
   async error => {
     const originalRequest = error.config;
+    const isPublic = PUBLIC_ENDPOINTS.some(path => originalRequest.url.includes(path));
 
-    if (
-      originalRequest.url?.includes("auth") ||
-      error.response?.status !== 401 ||
-      originalRequest._retry
-    ) {
+    if (isPublic || error.response?.status !== 401 || originalRequest._retry) {
       return Promise.reject(error);
     }
 
