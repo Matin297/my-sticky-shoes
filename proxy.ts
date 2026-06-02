@@ -10,7 +10,7 @@ export async function proxy(request: NextRequest) {
 
   const isPublicRoute = PUBLIC_ROUTES.includes(pathname);
   const isAuthRoute = AUTH_ROUTES.includes(pathname);
-  const isPrivateRoute = !isPublicRoute;
+  const isPrivateRoute = !isPublicRoute && !isAuthRoute;
   const refreshToken = (await cookies()).get(REFRESH_TOKEN)?.value;
 
   if (isPublicRoute) {
