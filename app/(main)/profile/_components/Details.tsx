@@ -4,6 +4,7 @@ import { ChevronRight } from "@mui/icons-material";
 import { Avatar, Divider, Stack, Typography } from "@mui/material";
 import { PushNotificationManager } from "@/app/_components/PushNotificationsManager";
 import { LinkButton } from "@/components/LinkButton";
+import { isProductionEnv } from "@/lib/utils";
 import { useGetCurrentUser } from "@/services/generated/profile/profile";
 
 export default function ProfileDetails() {
@@ -26,7 +27,7 @@ export default function ProfileDetails() {
         <LinkButton color="secondary" variant="outlined" endIcon={<ChevronRight />} href="/faq">
           FAQ
         </LinkButton>
-        <PushNotificationManager />
+        {isProductionEnv && <PushNotificationManager />}
       </Stack>
     </Stack>
   );
