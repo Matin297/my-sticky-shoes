@@ -5,7 +5,9 @@ import { DARK } from "./dark";
 import { LIGHT } from "./light";
 
 const theme = createTheme({
-  cssVariables: true,
+  cssVariables: {
+    colorSchemeSelector: "class",
+  },
   palette: {
     primary: colors.indigo,
     secondary: colors.teal,

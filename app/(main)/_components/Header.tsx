@@ -5,6 +5,7 @@ import { AppBar, Box, Toolbar } from "@mui/material";
 import type { Route } from "next";
 import { usePathname } from "next/navigation";
 import type { ReactNode } from "react";
+import ThemeToggle from "@/app/_components/ThemeToggle";
 import { LinkButton } from "@/components/LinkButton";
 
 interface NavLink {
@@ -46,7 +47,7 @@ export default function Header() {
   return (
     <AppBar position="static" color="transparent" elevation={0}>
       <Toolbar disableGutters sx={{ justifyContent: "space-between" }}>
-        <Box sx={{ display: "flex", alignItems: "center" }}>
+        <Box sx={{ display: "flex", alignItems: "center", width: "100%" }}>
           {NAV_LINKS.map(({ id, path, title, icon }) => {
             return (
               <LinkButton
@@ -59,6 +60,7 @@ export default function Header() {
               </LinkButton>
             );
           })}
+          <ThemeToggle sx={{ ml: "auto" }} />
         </Box>
       </Toolbar>
     </AppBar>
