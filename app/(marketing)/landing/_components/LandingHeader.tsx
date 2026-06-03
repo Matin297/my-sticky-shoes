@@ -6,14 +6,12 @@ import { LinkButton } from "@/components/LinkButton";
 
 export default function LandingHeader() {
   return (
-    <AppBar position="sticky" elevation={0}>
+    <AppBar color="default" position="sticky" elevation={0}>
       <Container maxWidth="xl">
         <Toolbar disableGutters sx={{ justifyContent: "space-between" }}>
-          <Link href="/">
-            <Typography color="primary" sx={{ typography: { sx: "h6", md: "h5" } }}>
-              My Sticky Shoes
-            </Typography>
-          </Link>
+          <Typography color="primary" sx={{ typography: { sx: "h6", md: "h5" } }}>
+            <Link href="/">My Sticky Shoes</Link>
+          </Typography>
 
           <Box sx={{ display: "flex", alignItems: "center" }}>
             <LinkButton variant="text" href="#about">

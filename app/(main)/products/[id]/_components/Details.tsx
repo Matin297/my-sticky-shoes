@@ -5,7 +5,7 @@ import {
   AddShoppingCart,
   Check,
   ChevronLeft,
-  Circle,
+  CircleOutlined,
   Favorite,
   FavoriteBorder,
   Remove,
@@ -111,7 +111,7 @@ export default function ProductDetails({ product }: ProductDetailsProps) {
               <Box sx={{ display: "flex", gap: 1, flexWrap: "wrap" }}>
                 {product.sizes.map(({ id, title }) => (
                   <Chip
-                    icon={id === size ? <Check /> : <Circle />}
+                    icon={id === size ? <Check /> : <CircleOutlined />}
                     clickable={false}
                     key={id}
                     label={title}
@@ -133,7 +133,7 @@ export default function ProductDetails({ product }: ProductDetailsProps) {
                     key={id}
                     label={title}
                     clickable={false}
-                    icon={id === color ? <Check /> : <Circle />}
+                    icon={id === color ? <Check /> : <CircleOutlined />}
                     onClick={() => setColor(id)}
                     sx={{
                       bgcolor: code,
