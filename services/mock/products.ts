@@ -72,9 +72,79 @@ const CATEGORIES = [
   },
 ] as const;
 
-const COLORS = ["Black", "White", "Red", "Blue", "Brown", "Gray", "Navy", "Tan"];
+const COLORS = [
+  {
+    title: "Black",
+    code: "#000000",
+    id: faker.string.uuid(),
+  },
+  {
+    title: "White",
+    code: "#FFFFFF",
+    id: faker.string.uuid(),
+  },
+  {
+    title: "Red",
+    code: "#FF0000",
+    id: faker.string.uuid(),
+  },
+  {
+    title: "Blue",
+    code: "#0000FF",
+    id: faker.string.uuid(),
+  },
+  {
+    title: "Brown",
+    code: "#8B4513",
+    id: faker.string.uuid(),
+  },
+  {
+    title: "Gray",
+    code: "#808080",
+    id: faker.string.uuid(),
+  },
+  {
+    title: "Navy",
+    code: "#000080",
+    id: faker.string.uuid(),
+  },
+  {
+    title: "Tan",
+    code: "#D2B48C",
+    id: faker.string.uuid(),
+  },
+];
 
-const SIZES = ["US 6", "US 7", "US 8", "US 9", "US 10", "US 11", "US 12"];
+const SIZES = [
+  {
+    title: "US 6",
+    id: faker.string.uuid(),
+  },
+  {
+    title: "US 7",
+    id: faker.string.uuid(),
+  },
+  {
+    title: "US 8",
+    id: faker.string.uuid(),
+  },
+  {
+    title: "US 9",
+    id: faker.string.uuid(),
+  },
+  {
+    title: "US 10",
+    id: faker.string.uuid(),
+  },
+  {
+    title: "US 11",
+    id: faker.string.uuid(),
+  },
+  {
+    title: "US 12",
+    id: faker.string.uuid(),
+  },
+];
 
 export interface Product {
   id: string;
@@ -95,8 +165,8 @@ export interface Product {
     id: string;
     title: string;
   };
-  colors: string[];
-  sizes: string[];
+  colors: { title: string; id: string; code: string }[];
+  sizes: { title: string; id: string }[];
 }
 
 export const MOCK_PRODUCTS: Product[] = Array.from({ length: 200 }, () => ({

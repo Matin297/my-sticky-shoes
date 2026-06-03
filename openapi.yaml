@@ -435,11 +435,30 @@ components:
         colors:
           type: array
           items:
-            type: string
+            type: object
+            properties:
+              id:
+                type: string
+              code:
+                type: string
+              title:
+                type: string
+            required:
+              - id
+              - code
+              - title
         sizes:
           type: array
           items:
-            type: string
+            type: object
+            properties:
+              id:
+                type: string
+              title:
+                type: string
+            required:
+              - id
+              - title
       required:
         - id
         - name
