@@ -1,12 +1,13 @@
 "use client";
 
-import { Home, Person, ShoppingBag } from "@mui/icons-material";
+import { Home, ShoppingBag, Web } from "@mui/icons-material";
 import { AppBar, Box, Toolbar } from "@mui/material";
 import type { Route } from "next";
 import { usePathname } from "next/navigation";
 import type { ReactNode } from "react";
 import ThemeToggle from "@/app/_components/ThemeToggle";
 import { LinkButton } from "@/components/LinkButton";
+import ProfileMenu from "./ProfileMenu";
 
 interface NavLink {
   id: number;
@@ -30,9 +31,9 @@ const NAV_LINKS: NavLink[] = [
   },
   {
     id: 3,
-    title: "profile",
-    path: "/profile",
-    icon: <Person />,
+    title: "landing",
+    path: "/landing",
+    icon: <Web />,
   },
 ];
 
@@ -61,6 +62,7 @@ export default function Header() {
             );
           })}
           <ThemeToggle sx={{ ml: "auto" }} />
+          <ProfileMenu />
         </Box>
       </Toolbar>
     </AppBar>

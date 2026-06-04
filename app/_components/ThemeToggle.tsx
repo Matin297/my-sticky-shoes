@@ -17,9 +17,9 @@ import { type ReactNode, useState } from "react";
 type ThemeMode = "light" | "dark" | "system";
 
 const MODE_ICONS: Record<ThemeMode, ReactNode> = {
-  light: <LightMode />,
-  dark: <DarkMode />,
-  system: <SystemMode />,
+  light: <LightMode fontSize="large" />,
+  dark: <DarkMode fontSize="large" />,
+  system: <SystemMode fontSize="large" />,
 };
 
 export default function ThemeToggle(props: BoxProps) {

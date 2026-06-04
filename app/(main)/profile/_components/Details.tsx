@@ -1,10 +1,10 @@
 "use client";
 
-import { ChevronRight } from "@mui/icons-material";
+import { ChevronRight, Person } from "@mui/icons-material";
 import { Avatar, Divider, Stack, Typography } from "@mui/material";
 import { PushNotificationManager } from "@/app/_components/PushNotificationsManager";
 import { LinkButton } from "@/components/LinkButton";
-import { isProductionEnv } from "@/lib/utils";
+import { getUsernameInitials, isProductionEnv } from "@/lib/utils";
 import { useGetCurrentUser } from "@/services/generated/profile/profile";
 
 export default function ProfileDetails() {
@@ -18,7 +18,9 @@ export default function ProfileDetails() {
   return (
     <Stack spacing={3}>
       <Stack spacing={1} sx={{ alignItems: "center" }}>
-        <Avatar src={user?.avatar} sx={{ width: 120, height: 120 }} />
+        <Avatar src={user?.avatar} sx={{ width: 120, height: 120 }}>
+          {user?.name ? getUsernameInitials(user.name) : <Person />}
+        </Avatar>
         <Typography>{user?.name}</Typography>
         <Typography>{user?.email}</Typography>
       </Stack>

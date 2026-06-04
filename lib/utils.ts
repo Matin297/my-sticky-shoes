@@ -30,3 +30,12 @@ export function isNotificationPermissionGranted(): boolean {
 export function isNotificationPermissionDenied(): boolean {
   return isPushSupported() && Notification.permission === "denied";
 }
+
+export const getUsernameInitials = (name: string) => {
+  return name
+    .trim()
+    .split(" ")
+    .map(word => word[0])
+    .join("")
+    .toUpperCase();
+};
