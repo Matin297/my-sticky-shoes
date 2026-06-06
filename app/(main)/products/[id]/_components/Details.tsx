@@ -49,9 +49,11 @@ export default function ProductDetails({ product }: ProductDetailsProps) {
 
   return (
     <Stack spacing={2}>
-      <IconButton component={Link} href="/products" sx={{ alignSelf: "flex-start" }}>
-        <ChevronLeft fontSize="large" />
-      </IconButton>
+      <Link href={`/products#${product.id}`}>
+        <IconButton>
+          <ChevronLeft fontSize="large" />
+        </IconButton>
+      </Link>
 
       <Grid container spacing={4}>
         <Grid size={{ xs: 12, md: 5 }}>

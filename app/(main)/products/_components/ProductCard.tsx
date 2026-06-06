@@ -13,7 +13,7 @@ interface ProductCardProps {
 
 export function ProductCard({ product, priority }: ProductCardProps) {
   return (
-    <Link href={`/products/${product.id}`}>
+    <Link href={`/products/${product.id}`} id={product.id}>
       <Card
         sx={{
           height: "100%",
