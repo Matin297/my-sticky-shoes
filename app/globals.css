@@ -18,3 +18,12 @@ a {
   text-decoration: none;
   scroll-margin-top: 80px;
 }
+
+@media (prefers-reduced-motion: reduce) {
+  ::view-transition-old(*),
+  ::view-transition-new(*),
+  ::view-transition-group(*) {
+    animation-duration: 0s;
+    animation-delay: 0s;
+  }
+}

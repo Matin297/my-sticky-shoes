@@ -1,5 +1,5 @@
 import { Container, Stack } from "@mui/material";
-import type { ReactNode } from "react";
+import { type ReactNode, ViewTransition } from "react";
 import { isProductionEnv } from "@/lib/utils";
 import PWAInstallationPrompt from "../_components/PWAInstallationPrompt";
 import ServiceWorkerUpdatePrompt from "../_components/ServiceWorkerUpdatePrompt";
@@ -15,7 +15,7 @@ export default function MainLayout({ children }: { children: ReactNode }) {
         </Stack>
       )}
       <Header />
-      {children}
+      <ViewTransition>{children}</ViewTransition>
     </Container>
   );
 }
