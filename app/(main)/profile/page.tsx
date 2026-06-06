@@ -12,7 +12,7 @@ export const metadata: Metadata = {
 export default function ProfilePage() {
   return (
     <>
-      <Stack spacing={1} direction="row" sx={{ alignItems: "center", mb: 4 }}>
+      <Stack spacing={1} direction="row" sx={{ alignItems: "center" }}>
         <PageMainHeading>Profile</PageMainHeading>
         <Link href="/profile/edit">
           <IconButton size="large" color="secondary">
