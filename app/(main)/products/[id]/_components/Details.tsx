@@ -55,7 +55,15 @@ export default function ProductDetails({ product }: ProductDetailsProps) {
 
       <Grid container spacing={4}>
         <Grid size={{ xs: 12, md: 5 }}>
-          <Box sx={{ position: "relative", width: "100%", height: { xs: 400, md: 300 } }}>
+          <Box
+            sx={{
+              position: "relative",
+              width: "100%",
+              borderRadius: 1,
+              overflow: "hidden",
+              height: { xs: 400, md: 300 },
+            }}
+          >
             <Image
               alt={product.name}
               src={product.image}
